@@ -1,0 +1,35 @@
+.navbar {
+    padding-left: 1.5rem;
+}
+
+.navbar-brand {
+    padding: 5px;
+    /* padding-right: 30px; */
+    /* border-right: 1px solid #dee2e6!important; */
+}
+
+.nav-item {
+    padding-left: 2.5px;
+    padding-right: 2.5px;
+}
+
+.nav-link.active {
+    color: red;
+}
+
+#main {
+    height: auto;
+}
+
+#footer {
+    background-color: #dee2e6;
+    max-height: 50px;
+}
+
+.nav-divider {
+    border-left: 1px solid #dee2e6;
+    height: 40px;
+    margin: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
