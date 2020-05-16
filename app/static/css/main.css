@@ -1,3 +1,4 @@
-rect {
-    fill: red;
+.arrText {
+    text-anchor: middle;
+    fill: #d3d3d3;
 }

@@ -22,10 +22,10 @@
                 <a class="nav-link" href="#">Quick Sort</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Heap Sort</a>
+                <a class="nav-link" href="#" onclick=heapSort(); >Heap Sort</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Insertion Sort</a>
+                <a class="nav-link" href="#" onclick=insertionSort(); >Insertion Sort</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Counting Sort</a>
@@ -35,7 +35,14 @@
               </li>
               <hr class="nav-divider">
               <li class="nav-item">
-                <a class="nav-link" href="#" onclick=createArray();>Generate New Array</a>
+                <a class="nav-link" href="#" onclick=createArray(); id="arrayButton">Generate New Array</a>
+              </li>
+              <li><hr class="nav-divider"></li>
+              <li class="nav-item">
+                <div class="slidecontainer">
+                  <input class="slider" id="myRange" oninput=changeSpeed(); type="range" min="2" max="100" value="50">
+                  <p class="slider-text">Sorting Speed</p>
+                </div>
               </li>
             </ul>
           </div>
@@ -56,6 +63,8 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="app/static/js/main.js"></script>
-
+        <script src="app/static/js/utilities.js"></script>
+        <script src="app/static/js/sort/insertionSort.js"></script>
+        <script src="app/static/js/sort/heapSort.js"></script>
     </body>
 </html>
