@@ -1,41 +1,82 @@
+
+// add another color after done building the heap
+
 async function heapSort() {
-    makeNavUnclickable();
+    utilities.makeNavUnclickable();
 
     // build max heap - starting from the bottom 
     var heapSize = arr.length;
-    for (var i = (heapSize / 2) - 1; i >= 0; i--)
-        heapify(arr, heapSize, i);
+    for (var i = 1; i < heapSize; i++) {
+        // if child is bigger than parent 
+        var parent = Math.floor((i - 1) / 2);
+        if (arr[i] > arr[parent]) {
+            var j = i;
 
+            // swap child and parent until parent is smaller 
+            while (arr[j] > arr[Math.floor((j - 1) / 2)]) {
+                var parent = Math.floor((j - 1) / 2);
+
+                utilities.swap(arr, j, parent);
+                await swapElement(j, parent, false);
+                j = parent;
+            }
+        }
+    }
+
+    await utilities.sleep(1000);
+
+    //====================================
     // reduce the max heap by one - taking the top element & repeat
-    while (heapSize > 0) {
-        swap(arr, 0, heapSize-1);
-        heapSize--;
-        heapify(arr, heapSize, 0);
-    }
-    console.log(arr);
+    for (var i = heapSize - 1; i > 0; i--) {
 
-    makeNavClickable();
+        // swap value of first indexed with last indexed
+        utilities.swap(arr, 0, i);
+        await swapElement(0, i, false);
+        console.log("i" + i)
+        await highlightSorted(i);
+
+        // maintaining heap property after each swapping 
+        var j = 0;
+        var index = (2 * j + 1);
+
+        // heapify
+        do {
+            index = (2 * j + 1);
+
+            // if left child is smaller than right child set index variable to right child 
+            if (index < (i - 1) && arr[index] < arr[index + 1]) {
+                index++;
+            }
+
+            // if parent is smaller than child then swapping parent with child having higher value 
+            if (index < i && arr[j] < arr[index]) {
+                utilities.swap(arr, j, index);
+                await swapElement(j, index, false);
+            }
+            j = index;
+
+        } while (index < i);
+    }
+    highlightSorted(0);
+
+    utilities.makeNavClickable();
 }
 
-// heapifies at the startIndex - requires all subtrees to be heaps already
-async function heapify(array, eleNum, startIndex) {
-    // Find largest among root, left child and right child
-    var largest = startIndex;
-    var left = 2 * startIndex + 1;
-    var right = 2 * startIndex + 2;
-  
-    if (left < eleNum && array[left] > array[largest])
-        largest = left;
-  
-    if (right < eleNum && array[right] > array[largest])
-        largest = right;
-  
-      // Swap and continue heapifying if root is not largest
-    if (largest != startIndex) {
-        swap(array, startIndex, largest);
+async function buildMaxHeap(arr, heapSize) {
+    for (var i = 1; i < heapSize; i++) {
+        // if child is bigger than parent 
+        var parent = Math.floor((i - 1) / 2);
+        if (arr[i] > arr[parent]) {
+            var j = i;
 
-        // await swapElement("i"+startIndex, "i"+largest, false);
-        heapify(array, eleNum, largest);
+            // swap child and parent until parent is smaller 
+            while (arr[j] > arr[Math.floor((j - 1) / 2)]) {
+                var parent = Math.floor((j - 1) / 2);
+
+                utilities.swap(arr, j, parent);
+                await swapElement(j, parent, false);
+                j = parent;
+            }
+        }
     }
 }
-

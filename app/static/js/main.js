@@ -1,24 +1,26 @@
 var navHeight = $(".navbar")[0].offsetHeight;
 var botHeight = $(".footer")[0].offsetHeight;
 
-var cHeight = window.innerHeight - navHeight - botHeight;
-var cWidth = window.innerWidth;
+var cHeight = window.innerHeight - navHeight - botHeight - 400;
 
 // global vars
-var svg = d3.select("main").append("svg").attr("width", cWidth).attr("height", cHeight);
 var dataX = "data-x";
 var dataXTranslate = "data-x-translate";
 var barNum = 14;
 
+// As Y increases, the element in svg moves down
 var width = 35;
-var x = 600;
-var y = cHeight / 2;
+var x = 35; // start of bar
+var y = cHeight / 2 + 200;
 var spacing = 20;
 var lowest = 20;
 var max = 300;
 
+var cWidth = 14 * (spacing + width) + 50;
+
 var arr = [];
-// var idArr = [];
+// the index of the array represents the position, and the value in the array represents which "bar" occupies the position
+var idArr = [];
 
 var slider = $("#myRange")[0];
 var speed = slider.value;
@@ -27,12 +29,22 @@ var highlightDuration = 500 * (speed / 50);
 var moveDuration = 1000 * (speed / 50);
 var pauseDuration = 500 * (speed / 50);
 
+// set dimensions
+var svg = d3.select("#svg-div").append("svg").attr("width", cWidth).attr("height", cHeight);
+
+$("#counting-sort-box").css("width", cWidth).css("height", (navHeight + botHeight));
+// make invis for other sorts
+$("#counting-sort-box").css("display", "none");
+
+
 createArray(); // start of page
 
 function createArray() {
     svg.selectAll("*").remove();
     var group = svg.append("g");
+
     arr.length = 0; // clear array
+    idArr.length = 0;
     
     var curX = x;
 
@@ -41,7 +53,7 @@ function createArray() {
 
         var height = Math.floor(Math.random() * max + lowest);
         arr.push(height);
-        // idArr.push(i);
+        idArr.push(i);
 
         group.append("rect")
             .attr("x", 0)
@@ -56,7 +68,7 @@ function createArray() {
             .attr("y", y - 10)
             .attr("dy", ".35em")
             .attr("class", "arrText")
-            .text(height)
+            .text(height);
 
         group.transition().attr("transform", `translate(${curX}, 0)`).duration(0);
         // group.attr(`${dataX}`, curX);
@@ -70,7 +82,7 @@ function createArray() {
 function moveElement(id, xTranslate) {
     return new Promise((resolve, reject) => {
         setTimeout( function() {
-            var ele = d3.select("#" + id);
+            var ele = d3.select("#i" + id);
             var eleMove = ele.transition();
 
             ele.attr(`${dataXTranslate}`, xTranslate);
@@ -84,7 +96,7 @@ function moveElement(id, xTranslate) {
 function highlightElement(id, color="yellow") {
     return new Promise((resolve, reject) => { // returns a promise that will be resolved in 500ms
         setTimeout( function() {
-            var eleMove = d3.select("#" + id).select("rect").transition();
+            var eleMove = d3.select("#i" + id).select("rect").transition();
             eleMove.attr("fill", color).duration(highlightDuration);
 
             resolve("done");
@@ -95,7 +107,7 @@ function highlightElement(id, color="yellow") {
 function revertHightlight(id) {
     return new Promise((resolve, reject) => { // returns a promise that will be resolved in 500ms
         setTimeout( function() {
-            var ele = d3.select("#" + id).select("rect");
+            var ele = d3.select("#i" + id).select("rect");
             var eleMove = ele.transition();
             eleMove.attr("fill", "red").duration(highlightDuration);
 
@@ -110,12 +122,15 @@ async function swapElement(id1, id2, idFromOrder=true) {
         // do nothing
     }
     else {
-        d3.select("#" + id1).attr("id", id2)
-        d3.select("#" + id2).attr("id", id1);
+        // swap the positions in the index array
+        utilities.swap(idArr, id1, id2);
+
+        id1 = idArr[id1];
+        id2 = idArr[id2];
     }
-    var x1 = d3.select("#" + id1).attr(`${dataXTranslate}`);
-    var x2 = d3.select("#" + id2).attr(`${dataXTranslate}`);
-    
+    var x1 = $("#i" + id1).attr(`${dataXTranslate}`);
+    var x2 = $("#i" + id2).attr(`${dataXTranslate}`);
+
     return new Promise((resolve, reject) => { //returns a promise that resolves in 500ms, but it waits for the promises inside to resolve first
         setTimeout( async function() {
             highlightElement(id1);
@@ -126,8 +141,23 @@ async function swapElement(id1, id2, idFromOrder=true) {
 
             revertHightlight(id1);
             await revertHightlight(id2);
-            
+
             resolve("done");
         }, pauseDuration);
+    });
+}
+
+function highlightSorted(id, color="blue", duration=highlightDuration) {
+    return new Promise((resolve, reject) => { // returns a promise that will be resolved in 500ms
+        setTimeout(function () {
+            // not from order
+            id = idArr[id];
+
+            var ele = d3.select("#i" + id).select("rect");
+            var eleMove = ele.transition();
+            eleMove.attr("fill", color).duration(highlightDuration);
+
+            resolve("done");
+        }, duration);
     });
 }

@@ -2,3 +2,26 @@
     text-anchor: middle;
     fill: #d3d3d3;
 }
+
+#info-box {
+    text-align: center;
+    height: 50px;
+    margin: 0 auto;
+    width: 10%;
+    margin-top: 2%;
+
+    font-size: large;
+}
+
+svg {
+    display: block;
+    margin: auto;
+
+    background-color: #F7F7F7;
+}
+
+#counting-sort-box {
+    background-color: aliceblue;
+    margin: auto;
+    margin-top: 30px;
+}
