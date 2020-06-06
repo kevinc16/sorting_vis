@@ -30,11 +30,13 @@ var moveDuration = 1000 * (speed / 50);
 var pauseDuration = 500 * (speed / 50);
 
 // set dimensions
-var svg = d3.select("#svg-div").append("svg").attr("width", cWidth).attr("height", cHeight);
+var svg = d3.select("#svg-div").append("svg").attr("width", cWidth).attr("height", cHeight).attr("id", "main-svg");
 
 $("#counting-sort-box").css("width", cWidth).css("height", (navHeight + botHeight));
+$("body").css("height", window.innerHeight);
 // make invis for other sorts
 $("#counting-sort-box").css("display", "none");
+
 
 // *** start of page ***
 createArray();

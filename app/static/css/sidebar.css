@@ -72,3 +72,11 @@
     /* display: inline; */
     font-size: 14px;
 }
+
+a:focus {
+    background-color: #f3f3f3;
+}
+
+a:hover {
+    background-color: #f3f3f3;
+}

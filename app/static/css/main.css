@@ -3,6 +3,11 @@
     fill: #d3d3d3;
 }
 
+.countText {
+    text-anchor: middle;
+    fill: black;
+}
+
 #info-box {
     text-align: center;
     height: 50px;
@@ -13,15 +18,21 @@
     font-size: large;
 }
 
-svg {
+#main-svg {
     display: block;
     margin: auto;
 
-    background-color: #F7F7F7;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-style: groove;
 }
 
 #counting-sort-box {
-    background-color: aliceblue;
+    background-color: rgba(255, 255, 255, 0.75);
     margin: auto;
     margin-top: 30px;
+}
+
+body {
+    background: radial-gradient(ellipse at top, lightblue, transparent),
+            radial-gradient(ellipse at bottom, lightgreen, transparent);
 }

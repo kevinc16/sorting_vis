@@ -15,15 +15,15 @@ async function quickSort() {
         pivot and all greater elements to right 
         of pivot */
 async function partition(arr, low, high) {
-    var temp;
     var pivot = arr[high];
 
     // index of smaller element 
     var i = (low - 1);
     for (var j = low; j <= high - 1; j++) {
-        // If current element is smaller 
-        // than or equal to pivot 
+
+        // If current element is smaller than or equal to pivot 
         if (arr[j] <= pivot) {
+
             i++;
 
             // swap arr[i] and arr[j] 
@@ -41,49 +41,37 @@ async function partition(arr, low, high) {
     return i + 1;
 }
 
-/* A[] --> Array to be sorted,
-l --> Starting index,
-h --> Ending index */
-async function quickSortIterative(arr, l, h) {
-    // Create an auxiliary stack 
+async function quickSortIterative(arr, start, end) {
     var stack = [];
-    stack.length = h - l + 1;
+    stack.length = end - start + 1;
     stack.fill(0);
 
     // initialize top of stack 
     var top = -1;
 
-    // push initial values of l and h to 
-    // stack 
-    stack[++top] = l;
-    stack[++top] = h;
+    // push initial values of start and end to stack 
+    stack[++top] = start;
+    stack[++top] = end;
 
-    // Keep popping from stack while 
-    // is not empty 
+    // Keep popping from stack while is not empty 
     while (top >= 0) {
         // Pop h and l 
-        h = stack[top--];
-        l = stack[top--];
+        end = stack[top--];
+        start = stack[top--];
 
-        // Set pivot element at its 
-        // correct position in 
-        // sorted array 
-        var p = await partition(arr, l, h);
+        // Set pivot element at its correct position in sorted array 
+        var p = await partition(arr, start, end);
 
-        // If there are elements on 
-        // left side of pivot, then 
-        // push left side to stack 
-        if (p - 1 > l) {
-            stack[++top] = l;
+        // If there are elements on left side of pivot, then push left side to stack 
+        if (p - 1 > start) {
+            stack[++top] = start;
             stack[++top] = p - 1;
         }
 
-        // If there are elements on 
-        // right side of pivot, then 
-        // push right side to stack 
-        if (p + 1 < h) {
+        // If there are elements on right side of pivot, then push right side to stack 
+        if (p + 1 < end) {
             stack[++top] = p + 1;
-            stack[++top] = h;
+            stack[++top] = end;
         }
     }
 }
