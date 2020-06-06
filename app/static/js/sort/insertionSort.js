@@ -14,8 +14,10 @@ async function insertionSort() {
         // highlighting the sub array thats sorted
         for (var a = 0; a <= i; a++) {
             if (a != (i-1)) {
-                console.log(idArr[a])
                 highlightSorted(a, "green");
+            }
+            else {
+                highlightSorted(a, "purple");
             }
         }
 

@@ -6,6 +6,10 @@ async function heapSort() {
     $("#counting-sort-box").html("");
     $("#counting-sort-box").css("display", "none");
 
+    for (var i = 0; i < heapSize; i++) {
+        highlightSorted(i, "red");
+    }
+
     // build max heap - starting from the bottom 
     var heapSize = arr.length;
     for (var i = 1; i < heapSize; i++) {
@@ -37,8 +41,12 @@ async function heapSort() {
         // swap value of first indexed with last indexed
         utilities.swap(arr, 0, i);
         await swapElement(0, i, false, "green");
-        console.log("i" + i)
         await highlightSorted(i);
+
+        // not max heap anymore
+        for (var a = 0; a < i; a++) {
+            highlightSorted(a, "red");
+        }
 
         // maintaining heap property after each swapping 
         var j = 0;
@@ -56,11 +64,16 @@ async function heapSort() {
             // if parent is smaller than child then swapping parent with child having higher value 
             if (index < i && arr[j] < arr[index]) {
                 utilities.swap(arr, j, index);
-                await swapElement(j, index, false, "green");
+                await swapElement(j, index, false);
             }
             j = index;
 
         } while (index < i);
+
+        // rebuilt max heap
+        for (var a = 0; a < i; a++) {
+            highlightSorted(a, "green");
+        }
     }
     highlightSorted(0);
 
