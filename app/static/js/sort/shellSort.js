@@ -1,5 +1,7 @@
 function shellSort() {
     var n = arr.length;
+    $("#counting-sort-box").html("");
+    $("#counting-sort-box").css("display", "none");
 
     // Start with a big gap, then reduce the gap 
     for (var gap = n / 2; gap > 0; gap /= 2)

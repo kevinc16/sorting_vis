@@ -36,14 +36,15 @@ $("#counting-sort-box").css("width", cWidth).css("height", (navHeight + botHeigh
 // make invis for other sorts
 $("#counting-sort-box").css("display", "none");
 
-
-createArray(); // start of page
+// *** start of page ***
+createArray();
 
 function createArray() {
     svg.selectAll("*").remove();
     var group = svg.append("g");
 
-    arr.length = 0; // clear array
+    // clear array
+    arr.length = 0;
     idArr.length = 0;
     
     var curX = x;
@@ -71,7 +72,6 @@ function createArray() {
             .text(height);
 
         group.transition().attr("transform", `translate(${curX}, 0)`).duration(0);
-        // group.attr(`${dataX}`, curX);
         group.attr(`${dataXTranslate}`, curX);
 
         curX += width + spacing;
@@ -94,7 +94,7 @@ function moveElement(id, xTranslate) {
 }
 
 function highlightElement(id, color="yellow") {
-    return new Promise((resolve, reject) => { // returns a promise that will be resolved in 500ms
+    return new Promise((resolve) => { // returns a promise that will be resolved in 500ms
         setTimeout( function() {
             var eleMove = d3.select("#i" + id).select("rect").transition();
             eleMove.attr("fill", color).duration(highlightDuration);
@@ -104,12 +104,12 @@ function highlightElement(id, color="yellow") {
     });
 }
 
-function revertHightlight(id) {
-    return new Promise((resolve, reject) => { // returns a promise that will be resolved in 500ms
+function revertHightlight(id, returnColor) {
+    return new Promise((resolve) => { // returns a promise that will be resolved in 500ms
         setTimeout( function() {
             var ele = d3.select("#i" + id).select("rect");
             var eleMove = ele.transition();
-            eleMove.attr("fill", "red").duration(highlightDuration);
+            eleMove.attr("fill", returnColor).duration(highlightDuration);
 
             resolve("done");
         }, pauseDuration * 2);
@@ -117,7 +117,7 @@ function revertHightlight(id) {
 }
 
 // id parameter requires "i" + num 
-async function swapElement(id1, id2, idFromOrder=true) {
+async function swapElement(id1, id2, idFromOrder=true, returnColor="red") {
     if (idFromOrder) {
         // do nothing
     }
@@ -131,7 +131,7 @@ async function swapElement(id1, id2, idFromOrder=true) {
     var x1 = $("#i" + id1).attr(`${dataXTranslate}`);
     var x2 = $("#i" + id2).attr(`${dataXTranslate}`);
 
-    return new Promise((resolve, reject) => { //returns a promise that resolves in 500ms, but it waits for the promises inside to resolve first
+    return new Promise((resolve) => { //returns a promise that resolves in 500ms, but it waits for the promises inside to resolve first
         setTimeout( async function() {
             highlightElement(id1);
             await highlightElement(id2);
@@ -139,8 +139,8 @@ async function swapElement(id1, id2, idFromOrder=true) {
             moveElement(id1, x2); // if x1 < x2, we move to the right, else left
             await moveElement(id2, x1);
 
-            revertHightlight(id1);
-            await revertHightlight(id2);
+            revertHightlight(id1, returnColor);
+            await revertHightlight(id2, returnColor);
 
             resolve("done");
         }, pauseDuration);
@@ -148,7 +148,7 @@ async function swapElement(id1, id2, idFromOrder=true) {
 }
 
 function highlightSorted(id, color="blue", duration=highlightDuration) {
-    return new Promise((resolve, reject) => { // returns a promise that will be resolved in 500ms
+    return new Promise((resolve) => { // returns a promise that will be resolved in 500ms
         setTimeout(function () {
             // not from order
             id = idArr[id];
@@ -160,4 +160,12 @@ function highlightSorted(id, color="blue", duration=highlightDuration) {
             resolve("done");
         }, duration);
     });
+}
+
+async function compareElement(id1, id2, color="yellow") {
+    highlightElement(id1, color);
+    await highlightElement(id2, color);
+
+    revertHightlight(id1);
+    await revertHightlight(id2);
 }

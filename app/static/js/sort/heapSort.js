@@ -3,6 +3,8 @@
 
 async function heapSort() {
     utilities.makeNavUnclickable();
+    $("#counting-sort-box").html("");
+    $("#counting-sort-box").css("display", "none");
 
     // build max heap - starting from the bottom 
     var heapSize = arr.length;
@@ -23,6 +25,9 @@ async function heapSort() {
         }
     }
 
+    for (var i = 0; i < heapSize; i++) {
+        highlightSorted(i, "green");
+    }
     await utilities.sleep(1000);
 
     //====================================
@@ -31,7 +36,7 @@ async function heapSort() {
 
         // swap value of first indexed with last indexed
         utilities.swap(arr, 0, i);
-        await swapElement(0, i, false);
+        await swapElement(0, i, false, "green");
         console.log("i" + i)
         await highlightSorted(i);
 
@@ -51,7 +56,7 @@ async function heapSort() {
             // if parent is smaller than child then swapping parent with child having higher value 
             if (index < i && arr[j] < arr[index]) {
                 utilities.swap(arr, j, index);
-                await swapElement(j, index, false);
+                await swapElement(j, index, false, "green");
             }
             j = index;
 

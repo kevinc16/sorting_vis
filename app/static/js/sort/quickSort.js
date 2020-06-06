@@ -1,5 +1,7 @@
 async function quickSort() {
     utilities.makeNavUnclickable();
+    $("#counting-sort-box").html("");
+    $("#counting-sort-box").css("display", "none");
 
     await quickSortIterative(arr, 0, arr.length-1);
 

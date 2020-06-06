@@ -37,8 +37,6 @@ class countingSort {
             }
         }
         console.log(arr);
-        $("#counting-sort-box").html("");
-        $("#counting-sort-box").css("display", "none");
     }
 
     static async replace(index, hValue) {
