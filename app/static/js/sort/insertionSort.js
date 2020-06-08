@@ -38,14 +38,7 @@ async function insertionSort() {
     await utilities.sleep(500);
 
     // finish
-    for (var i = 0; i < barNum; i++) {
-        if (highlightDuration > 100) {
-            await highlightSorted(i, color="blue", duration=100);
-        }
-        else {
-            await highlightSorted(i);
-        }
-    }
+    await utilities.colorSorted();
     
     utilities.makeNavClickable();
 }

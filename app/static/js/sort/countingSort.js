@@ -70,14 +70,7 @@ class countingSort {
         }
 
         // highlight sorted
-        for (var i = 0; i < array.length; i++) {
-            if (highlightDuration > 100) {
-                await highlightSorted(i, color = "blue", duration = 100);
-            }
-            else {
-                await highlightSorted(i);
-            }
-        }
+        await utilities.colorSorted();
 
         utilities.makeNavClickable();
     }

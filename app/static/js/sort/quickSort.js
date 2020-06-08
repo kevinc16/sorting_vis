@@ -17,6 +17,8 @@ async function quickSort() {
 async function partition(arr, low, high) {
     var pivot = arr[high];
 
+    await highlightElement(high, "purple");
+
     // index of smaller element 
     var i = (low - 1);
     for (var j = low; j <= high - 1; j++) {
@@ -32,11 +34,11 @@ async function partition(arr, low, high) {
         }
     }
 
-    // swap arr[i+1] and arr[high] 
-    // (or pivot) 
-
+    // swap arr[i+1] and arr[high] (or pivot) 
     utilities.swap(arr, i + 1, high);
-    await swapElement(i+1, high, false);
+    await swapElement(i+1, high, false, "red");
+
+    await revertHightlight(high, "red");
 
     return i + 1;
 }
@@ -74,4 +76,6 @@ async function quickSortIterative(arr, start, end) {
             stack[++top] = end;
         }
     }
+
+    await utilities.colorSorted();
 }
