@@ -80,3 +80,10 @@ a:focus {
 a:hover {
     background-color: #f3f3f3;
 }
+
+.pause-container {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-60%);
+}

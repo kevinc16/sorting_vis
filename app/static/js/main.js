@@ -106,7 +106,7 @@ function highlightElement(id, color="yellow") {
     });
 }
 
-function revertHightlight(id, returnColor) {
+function revertHightlight(id, returnColor="red") {
     return new Promise((resolve) => { // returns a promise that will be resolved in 500ms
         setTimeout( function() {
             var ele = d3.select("#i" + id).select("rect");
@@ -117,8 +117,7 @@ function revertHightlight(id, returnColor) {
         }, pauseDuration * 2);
     });
 }
-
-// id parameter requires "i" + num 
+// id from order = true means the index as we see on the screen
 async function swapElement(id1, id2, idFromOrder=true, returnColor="red") {
     if (idFromOrder) {
         // do nothing
@@ -164,7 +163,11 @@ function highlightSorted(id, color="blue", duration=highlightDuration) {
     });
 }
 
-async function compareElement(id1, id2, color="yellow") {
+async function compareElement(id1, id2, color="yellow", fromOrder=true) {
+    if (fromOrder) {
+        id1 = idArr[id1];
+        id2 = idArr[id2];
+    }
     highlightElement(id1, color);
     await highlightElement(id2, color);
 

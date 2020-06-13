@@ -29,7 +29,7 @@ class utilities {
     static async colorSorted() {
         for (var i = 0; i < arr.length; i++) {
             if (highlightDuration > 100) {
-                await highlightSorted(i, color = "blue", duration = 100);
+                await highlightSorted(i, "blue", 100);
             }
             else {
                 await highlightSorted(i);
