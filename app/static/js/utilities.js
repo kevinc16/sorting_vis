@@ -4,7 +4,6 @@ class utilities {
         speed = slider.value;
         pauseDuration = highlightDuration = 500 * (speed / 50);
         moveDuration = 1000 * (speed / 50);
-        // console.log(speed)
     }
 
     static makeNavUnclickable() {

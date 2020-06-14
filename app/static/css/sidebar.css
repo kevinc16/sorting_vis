@@ -87,3 +87,7 @@ a:hover {
     -ms-transform: translateY(-50%);
     transform: translateY(-60%);
 }
+
+.footer-copyright {
+    font-style: italic;
+}

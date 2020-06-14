@@ -1,9 +1,15 @@
-An algorithm and data structure visualization tool
+# A Sorting Algorithm Visualization Site
 
+A website created to help better understanding of some different sorting algorithms using animations. Animations were created with [D3.js](https://d3js.org/).
 
-- sorting algos
-    - quick sort
-    - heap sort
-    - counting sort
-    - radix sort
-    - insertion sort
+The sorting algorithms that are featured include:
+-
+- quick sort
+- heap sort
+- counting sort
+- shell sort
+- insertion sort
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
