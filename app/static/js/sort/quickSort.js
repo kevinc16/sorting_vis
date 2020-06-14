@@ -8,22 +8,19 @@ async function quickSort() {
     utilities.makeNavClickable();
 }
 
-/* This function takes last element as pivot, 
-        places the pivot element at its correct 
-        position in sorted array, and places all 
-        smaller (smaller than pivot) to left of 
-        pivot and all greater elements to right 
-        of pivot */
+// This function takes last element as pivot
+// we know an element is in the correct position if all elements before are smaller and all elements after are larger
+// which is what we try to do
 async function partition(arr, low, high) {
     var pivot = arr[high];
 
-    await highlightElement(high, "purple");
+    await highlightSorted(high, "purple");
 
     // index of smaller element 
     var i = (low - 1);
     for (var j = low; j <= high - 1; j++) {
 
-        // If current element is smaller than or equal to pivot 
+        // If current element is smaller than or equal to pivot, move it to the front of the pivot
         if (arr[j] <= pivot) {
 
             i++;
@@ -34,7 +31,7 @@ async function partition(arr, low, high) {
         }
     }
 
-    // swap arr[i+1] and arr[high] (or pivot) 
+    // swap arr[i+1] the pivot, the correct position
     utilities.swap(arr, i + 1, high);
     await swapElement(i+1, high, false, "red");
 
@@ -43,6 +40,8 @@ async function partition(arr, low, high) {
     return i + 1;
 }
 
+// we use a stack to mimic recursion
+// after each pass we reduce the problem by half in the best case (depending on where the pivot is)
 async function quickSortIterative(arr, start, end) {
     var stack = [];
     stack.length = end - start + 1;

@@ -51,7 +51,8 @@ class countingSort {
 
         await utilities.sleep(500);
         // now apply it
-        // cArr is the longer array
+        // cArr is the longer array with the counts
+        // i is the value of the element
         var count = 0;
         for (var i = 0; i < cArr.length; i++) {
             while (cArr[i] > 0) {
@@ -72,10 +73,13 @@ class countingSort {
         // highlight sorted
         await utilities.colorSorted();
 
+        console.log(arr);
+
         utilities.makeNavClickable();
     }
 
     static async replace(index, hValue) {
+        index = idArr[index]; // we need this so it goes in order
         var group = d3.select("#i" + index);
 
         return new Promise((resolve) => {
