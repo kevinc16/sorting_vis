@@ -19,7 +19,7 @@ var max = 300;
 var cWidth = 14 * (spacing + width) + 50;
 
 var arr = [];
-// the index of the array represents the position, and the value in the array represents which "bar" occupies the position
+// the index of the array represents the position, and the value in the array represents which "bar" (from 'arr') occupies the position
 var idArr = [];
 
 var slider = $("#myRange")[0];
@@ -96,7 +96,7 @@ function moveElement(id, xTranslate) {
 }
 
 function highlightElement(id, color="yellow") {
-    return new Promise((resolve) => { // returns a promise that will be resolved in 500ms
+    return new Promise((resolve) => { // returns a promise that will be resolved in pauseDuration (ms)
         setTimeout( function() {
             var eleMove = d3.select("#i" + id).select("rect").transition();
             eleMove.attr("fill", color).duration(highlightDuration);
@@ -107,7 +107,7 @@ function highlightElement(id, color="yellow") {
 }
 
 function revertHightlight(id, returnColor="red") {
-    return new Promise((resolve) => { // returns a promise that will be resolved in 500ms
+    return new Promise((resolve) => { // returns a promise that will be resolved in pauseDuration
         setTimeout( function() {
             var ele = d3.select("#i" + id).select("rect");
             var eleMove = ele.transition();
