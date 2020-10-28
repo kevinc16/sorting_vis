@@ -10,7 +10,8 @@ async function heapSort() {
         highlightSorted(i, "red");
     }
 
-    // build max heap - starting from the bottom 
+    // build max heap - starting from the top
+    // we also needed to make it iterative instead of recursive
     var heapSize = arr.length;
     for (var i = 1; i < heapSize; i++) {
         // if child is bigger than parent 
@@ -19,7 +20,7 @@ async function heapSort() {
             var j = i;
 
             // swap child and parent until parent is smaller 
-            while (arr[j] > arr[Math.floor((j - 1) / 2)]) {
+            while (arr[j] > arr[Math.floor((j - 1) / 2)]) { // we are comparing the child and the parent
                 var parent = Math.floor((j - 1) / 2);
 
                 utilities.swap(arr, j, parent);

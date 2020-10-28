@@ -107,7 +107,7 @@ function highlightElement(id, color="yellow") {
 }
 
 function revertHightlight(id, returnColor="red") {
-    return new Promise((resolve) => { // returns a promise that will be resolved in pauseDuration
+    return new Promise((resolve) => { // returns a promise that will be resolved in pauseDuration * 2
         setTimeout( function() {
             var ele = d3.select("#i" + id).select("rect");
             var eleMove = ele.transition();
@@ -117,7 +117,7 @@ function revertHightlight(id, returnColor="red") {
         }, pauseDuration * 2);
     });
 }
-// id from order = true means the index as we see on the screen
+// id from order = true means the index as we see on the screen - if false it means we should refer to the index array
 async function swapElement(id1, id2, idFromOrder=true, returnColor="red") {
     if (idFromOrder) {
         // do nothing

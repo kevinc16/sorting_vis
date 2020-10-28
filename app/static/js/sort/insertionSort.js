@@ -25,7 +25,7 @@ async function insertionSort() {
 
         // move all elements in the sub array up till correct position
         j = i-1;
-        while (j >= 0 && key < arr[j]) {
+        while (j >= 0 && key < arr[j]) { // while key is less than the prev element, we swap
             arr[j + 1] = arr[j];
             await swapElement((j+1), j, false);
             j -= 1;

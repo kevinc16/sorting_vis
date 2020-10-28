@@ -10,7 +10,7 @@ async function shellSort() {
     // as the gap gets smaller, we basically use insertion sort to sort all the elements
     for (var gap = parseInt(n / 2); gap > 0; gap = parseInt(gap / 2)) {
 
-        // compare all elements to the right of the gap
+        // compare all elements to the right of the gap - since we are going backwards basically
         for (var i = gap; i < n; i++) {
 
             var temp = arr[i];

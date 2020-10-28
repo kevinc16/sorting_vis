@@ -8,7 +8,8 @@ class countingSort {
     static async countingSort(array=arr) {
         utilities.makeNavUnclickable();
 
-        d3.select("#counting-sort-box").html("");
+        // added a box for the counting array to make it more clear what we are doing
+        d3.select("#counting-sort-box").html(""); // clears the previous box, if it exists
         var svg = d3.select("#counting-sort-box")
                     .append("svg")
                     .attr("id", "csvg")
@@ -28,10 +29,11 @@ class countingSort {
         var tempArr = array.slice();
         tempArr.sort(function (a, b) { return a - b });
         tempArr = [...new Set(tempArr)]; // remove duplicates
+        // The constructor of Set takes an iterable object, like Array, and the spread operator ... transform the set back into an Array.
 
         // add the frame
         for (var i = 0; i < tempArr.length; i++) {
-            this.skip(svg);
+            this.skip(svg); // this adds ... to the middle of each element
             this.addToArray(svg, tempArr[i]);
         }
 
@@ -74,6 +76,8 @@ class countingSort {
         await utilities.colorSorted();
 
         console.log(arr);
+
+        // why don't we clear the box at the end? - it's so the viewer can see it in the end... although im not sure if that's even necessary
 
         utilities.makeNavClickable();
     }
