@@ -2,6 +2,9 @@ var navHeight = $(".navbar")[0].offsetHeight;
 var botHeight = $(".footer")[0].offsetHeight;
 
 var cHeight = window.innerHeight - navHeight - botHeight - 400;
+if (cHeight < 450) {
+    cHeight = 450;
+}
 
 // global vars
 var dataX = "data-x";
